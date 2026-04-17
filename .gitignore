@@ -2,6 +2,9 @@
 .*
 # except for .gitignore
 !.gitignore
+# except for .github
+!.github
+!.github/**
 
 # Ignore Play! working directory #
 ######################
