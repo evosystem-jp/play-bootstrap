@@ -35,13 +35,7 @@ licenses := Seq("Apache License" -> url("https://github.com/playframework/play-b
 
 startYear := Some(2014)
 
-publishTo := {
-  val nexus = "https://oss.sonatype.org/"
-  if (isSnapshot.value)
-    Some("snapshots" at nexus + "content/repositories/snapshots")
-  else
-    Some("releases"  at nexus + "service/local/staging/deploy/maven2")
-}
+publishTo := Some("GitHub Package Registry" at "https://maven.pkg.github.com/evosystem-jp/play-bootstrap")
 
 publishArtifact in Test := false
 
@@ -49,16 +43,21 @@ pomIncludeRepository := { _ => false }
 
 pomExtra := (
   <scm>
-    <url>git@github.com:playframework/play-bootstrap.git</url>
-    <connection>scm:git:git@github.com:playframework/play-bootstrap.git</connection>
+    <url>git@github.com:evosystem-jp/play-bootstrap.git</url>
+    <connection>scm:git:git@github.com:evosystem-jp/play-bootstrap.git</connection>
   </scm>
   <developers>
     <developer>
-      <id>playframework</id>
-      <name>Play Framework Contributors</name>
-      <url>https://github.com/playframework</url>
+      <id>evosystem-jp</id>
+      <name>evosystem-jp</name>
+      <url>https://github.com/evosystem-jp</url>
     </developer>
   </developers>
 )
 
-credentials += Credentials(Path.userHome / ".sbt" / "sonatype.credentials")
+credentials += Credentials(
+  "GitHub Package Registry",
+  "maven.pkg.github.com",
+  sys.env("GITHUB_ACTOR"),
+  sys.env("GITHUB_TOKEN")
+)

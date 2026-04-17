@@ -46,19 +46,18 @@ licenses := Seq("Apache License" -> url("https://github.com/playframework/play-b
 
 startYear := Some(2014)
 
-publishTo := {
-  val nexus = "https://oss.sonatype.org/"
-  if (isSnapshot.value)
-    Some("snapshots" at nexus + "content/repositories/snapshots")
-  else
-    Some("releases"  at nexus + "service/local/staging/deploy/maven2")
-}
+publishTo := Some("GitHub Package Registry" at "https://maven.pkg.github.com/evosystem-jp/play-bootstrap")
 
 publishArtifact in Test := false
 
 pomIncludeRepository := { _ => false }
 
-credentials += Credentials(Path.userHome / ".sbt" / "sonatype.credentials")
+credentials += Credentials(
+  "GitHub Package Registry",
+  "maven.pkg.github.com",
+  sys.env("GITHUB_ACTOR"),
+  sys.env("GITHUB_TOKEN")
+)
 
 publishConfiguration := publishConfiguration.value.withOverwrite(isSnapshot.value)
 com.typesafe.sbt.pgp.PgpKeys.publishSignedConfiguration := com.typesafe.sbt.pgp.PgpKeys.publishSignedConfiguration.value.withOverwrite(isSnapshot.value)
